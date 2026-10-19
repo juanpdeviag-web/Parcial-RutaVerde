@@ -1,4 +1,4 @@
-package com.rutaverde.model.entities;
+package edu.uniquindio.co.rutaverde.model.entities;
 
 public class Cliente {
     private String id;

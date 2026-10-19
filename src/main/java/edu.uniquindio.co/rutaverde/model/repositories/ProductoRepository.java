@@ -1,4 +1,4 @@
-package com.rutaverde.model.repositories;
+package edu.uniquindio.co.rutaverde.model.repositories;
 
 public class ProductoRepository {
     

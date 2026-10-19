@@ -1,4 +1,4 @@
-package com.rutaverde.view;
+package edu.uniquindio.co.rutaverde.view;
 
 public class ReservaView {
     
