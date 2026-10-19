@@ -1,4 +1,4 @@
-package com.rutaverde.util;
+package edu.uniquindio.co.rutaverde.util;
 
 public class EmailService {
     

@@ -1,4 +1,4 @@
-package com.rutaverde.patterns.structural;
+package edu.uniquindio.co.rutaverde.patterns.structural;
 
 public class VoucherCorto implements VoucherStrategy {
     

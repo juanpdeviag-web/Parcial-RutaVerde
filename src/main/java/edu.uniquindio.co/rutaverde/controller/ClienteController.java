@@ -1,4 +1,4 @@
-package com.rutaverde.controller;
+package edu.uniquindio.co.rutaverde.controller;
 
 public class ClienteController {
     

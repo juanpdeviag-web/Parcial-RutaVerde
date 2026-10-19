@@ -1,4 +1,4 @@
-package com.rutaverde.model.entities;
+package edu.uniquindio.co.rutaverde.model.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
