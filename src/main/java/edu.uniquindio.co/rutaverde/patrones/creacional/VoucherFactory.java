@@ -1,4 +1,4 @@
-package edu.uniquindio.co.rutaverde.patterns.creational;
+package edu.uniquindio.co.rutaverde.patrones.creacional;
 
 import edu.uniquindio.co.rutaverde.model.entities.Agencia;
 import edu.uniquindio.co.rutaverde.model.entities.Reserva;

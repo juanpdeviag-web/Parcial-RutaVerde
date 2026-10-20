@@ -1,7 +1,7 @@
 package edu.uniquindio.co.rutaverde.model.services;
 
 import edu.uniquindio.co.rutaverde.model.entities.*;
-import edu.uniquindio.co.rutaverde.patterns.structural.*;
+import edu.uniquindio.co.rutaverde.patrones.estructural.*;
 import java.time.LocalDateTime;
 
 public class GeneradorVoucher {
