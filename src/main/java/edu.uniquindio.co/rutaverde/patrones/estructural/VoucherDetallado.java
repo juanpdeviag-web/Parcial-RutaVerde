@@ -9,6 +9,7 @@ public class VoucherDetallado implements VoucherStrategy {
         if (reserva == null || agencia == null) throw new IllegalArgumentException("Reserva y agencia son obligatorias");
         StringBuilder s = new StringBuilder("=== VOUCHER DETALLADO ===\n")
             .append(valor(agencia.getNombreComercial())).append("\nRNT: ").append(valor(agencia.getRNT()))
+            .append("\nPasarela: PagoAndino")
             .append("\n\nReserva #: ").append(reserva.getNumero())
             .append("\nCliente: ").append(reserva.getCliente()==null?"N/A":valor(reserva.getCliente().getNombre()))
             .append("\nProducto: ").append(reserva.getProducto()==null?"N/A":valor(reserva.getProducto().getNombre()))

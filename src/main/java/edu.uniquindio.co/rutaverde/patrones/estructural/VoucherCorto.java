@@ -5,6 +5,6 @@ public class VoucherCorto implements VoucherStrategy {
  @Override
  public String generarVoucher(Reserva r, Agencia a) {
   if(r==null) throw new IllegalArgumentException("La reserva es obligatoria");
-  return "VOUCHER-"+r.getNumero()+" | "+(r.getProducto()==null?"N/A":r.getProducto().getNombre())+" | "+r.getFechaViaje();
+  return "VOUCHER-"+r.getNumero()+" | "+(r.getProducto()==null?"N/A":r.getProducto().getNombre())+" | "+r.getFechaViaje()+" | Pasarela: PagoAndino";
  }
 }
