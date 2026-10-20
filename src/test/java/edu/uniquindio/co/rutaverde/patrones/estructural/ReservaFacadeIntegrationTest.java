@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class ReservaFacadeIntegrationTest {
 
@@ -21,6 +22,7 @@ class ReservaFacadeIntegrationTest {
     private Producto producto;
     private ValidadorTarjeta validador;
     private PasarelaPagoAdapter pasarela;
+    private PagoAndinoAPI pagoAPI;
     private GestorReservas gestor;
     private GeneradorVoucher generadorVoucher;
     private EmailService emailService;
@@ -50,7 +52,7 @@ class ReservaFacadeIntegrationTest {
 
         validador = new ValidadorTarjeta(new LuhnValidator());
 
-        PagoAndinoAPI pagoAPI = new PagoAndinoAPI();
+        pagoAPI = spy(new PagoAndinoAPI());
         pasarela = new PasarelaPagoAdapter(pagoAPI);
 
         gestor = new GestorReservas(validador, pasarela);
@@ -74,6 +76,9 @@ class ReservaFacadeIntegrationTest {
         assertEquals("CONFIRMADA", reserva.getEstado());
         assertEquals(9, actividad.getCupoDisponible());
         assertNotNull(reserva.getVoucher());
+        verify(pagoAPI).procesarCobro(eq("4539 1488 0343 6467"), eq(100000L), startsWith("RUTAVERDE-"));
+        assertEquals("PA-1001", pasarela.obtenerAutorizacion());
+        assertTrue(reserva.getVoucher().getContenido().contains("Pasarela: PagoAndino"));
     }
 
     @Test
@@ -103,6 +108,7 @@ class ReservaFacadeIntegrationTest {
 
         assertNull(reserva);
         assertEquals(0, actividad.getCupoDisponible());
+        verifyNoInteractions(pagoAPI);
     }
 
     @Test
@@ -114,5 +120,28 @@ class ReservaFacadeIntegrationTest {
 
         assertNull(reserva);
         assertEquals(10, actividad.getCupoDisponible());
+        verifyNoInteractions(pagoAPI);
+    }
+
+    @Test
+    void testRechazoDePagoAndinoNoConfirmaNiDescuentaCupo() {
+        producto.setPrecioTotal(400000000L);
+        Reserva reserva = facade.confirmarReserva(cliente, producto, LocalDate.now(), "4539148803436467");
+        verify(pagoAPI).procesarCobro(eq("4539148803436467"), eq(400000000L), startsWith("RUTAVERDE-"));
+        assertNull(reserva);
+        assertTrue(gestor.listarReservas().isEmpty());
+        assertEquals(10, actividad.getCupoDisponible());
+    }
+
+    @Test
+    void tarjetaRegistradaManualmenteLlegaSinSustituirseAPagoAndino() {
+        var app = new edu.uniquindio.co.rutaverde.controller.MainController();
+        var tarjeta = new edu.uniquindio.co.rutaverde.controller.TarjetaController(app)
+                .agregar("4111 1111 1111 1111");
+        Reserva reserva = facade.confirmarReserva(cliente, producto, LocalDate.now(), tarjeta.getNumero());
+        assertNotNull(reserva);
+        verify(pagoAPI).procesarCobro(eq("4111111111111111"), eq(100000L), startsWith("RUTAVERDE-"));
+        assertEquals("CONFIRMADA", reserva.getEstado());
+        assertTrue(reserva.getVoucher().getContenido().contains("PagoAndino"));
     }
 }

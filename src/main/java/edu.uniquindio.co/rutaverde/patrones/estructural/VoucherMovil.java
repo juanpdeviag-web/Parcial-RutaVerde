@@ -6,7 +6,7 @@ public class VoucherMovil implements VoucherStrategy {
  public String generarVoucher(Reserva r, Agencia a) {
   if(r==null)
    throw new IllegalArgumentException("La reserva es obligatoria");
-  return "{\"reserva\":"+r.getNumero()+",\"producto\":\""+esc(r.getProducto()==null?"N/A":r.getProducto().getNombre())+"\",\"fecha\":\""+r.getFechaViaje()+"\",\"cliente\":\""+esc(r.getCliente()==null?"N/A":r.getCliente().getNombre())+"\"}";
+  return "{\"reserva\":"+r.getNumero()+",\"pasarela\":\"PagoAndino\",\"producto\":\""+esc(r.getProducto()==null?"N/A":r.getProducto().getNombre())+"\",\"fecha\":\""+r.getFechaViaje()+"\",\"cliente\":\""+esc(r.getCliente()==null?"N/A":r.getCliente().getNombre())+"\"}";
  }
  private String esc(String s){return s==null?"":s.replace("\\","\\\\").replace("\"","\\\"");}
 }

@@ -1,5 +1,7 @@
 package edu.uniquindio.co.rutaverde.model.repositories;
 
-public class ClienteRepository {
-    
+import edu.uniquindio.co.rutaverde.model.entities.Cliente;
+
+public class ClienteRepository extends MemoryRepository<Cliente> {
+    public ClienteRepository() { super(Cliente::getId); }
 }
