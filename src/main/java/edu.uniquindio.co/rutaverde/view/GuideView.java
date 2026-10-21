@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import java.util.function.Consumer;
 
-/** Pantalla de ayuda dentro del contenedor principal, sin ventanas adicionales. */
+/** Pantalla de ayuda */
 public class GuideView extends ScrollPane {
     public GuideView(GuideController controller, Consumer<String> navigate) {
         setId("guide-scroll");
