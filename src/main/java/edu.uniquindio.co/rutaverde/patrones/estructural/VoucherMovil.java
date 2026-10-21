@@ -1,0 +1,12 @@
+package edu.uniquindio.co.rutaverde.patrones.estructural;
+import edu.uniquindio.co.rutaverde.model.entities.*;
+
+public class VoucherMovil implements VoucherStrategy {
+ @Override
+ public String generarVoucher(Reserva r, Agencia a) {
+  if(r==null)
+   throw new IllegalArgumentException("La reserva es obligatoria");
+  return "{\"reserva\":"+r.getNumero()+",\"pasarela\":\"PagoAndino\",\"producto\":\""+esc(r.getProducto()==null?"N/A":r.getProducto().getNombre())+"\",\"fecha\":\""+r.getFechaViaje()+"\",\"cliente\":\""+esc(r.getCliente()==null?"N/A":r.getCliente().getNombre())+"\"}";
+ }
+ private String esc(String s){return s==null?"":s.replace("\\","\\\\").replace("\"","\\\"");}
+}
